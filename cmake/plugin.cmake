@@ -49,7 +49,7 @@ MACRO(MYSQL_ADD_PLUGIN)
   LIST(REMOVE_AT SOURCES 0)
   STRING(TOUPPER ${plugin} plugin)
   STRING(TOLOWER ${plugin} target)
-  
+
   IF (ARG_MANDATORY)
     UNSET(PLUGIN_${plugin} CACHE)
     SET(PLUGIN_${plugin} "YES")
@@ -110,11 +110,11 @@ MACRO(MYSQL_ADD_PLUGIN)
     SET(with_var "WITH_${plugin}")
   ENDIF()
   UNSET(${with_var} CACHE)
-  
+
   IF(NOT ARG_DEPENDENCIES)
     SET(ARG_DEPENDENCIES)
   ENDIF()
-  
+
   IF(NOT ARG_MODULE_OUTPUT_NAME)
     IF(ARG_STORAGE_ENGINE)
       SET(ARG_MODULE_OUTPUT_NAME "ha_${target}")
@@ -257,6 +257,13 @@ MACRO(MYSQL_ADD_PLUGIN)
     INSTALL_MYSQL_TEST("${CMAKE_CURRENT_SOURCE_DIR}/mysql-test/" "plugin/${subpath}")
   ENDIF()
 
+  IF (ARG_STORAGE_ENGINE)
+    ADD_FEATURE_INFO(${plugin} PLUGIN_${plugin} "Storage Engine - ${PLUGIN_${plugin}}")
+  ELSEIF (ARG_CLIENT)
+    ADD_FEATURE_INFO(${plugin} PLUGIN_${plugin} "Client plugin - ${PLUGIN_${plugin}}")
+  ELSE()
+    ADD_FEATURE_INFO(${plugin} PLUGIN_${plugin} "Server plugin - ${PLUGIN_${plugin}}")
+  ENDIF()
   ENDIF(NOT WITHOUT_SERVER OR ARG_CLIENT)
 ENDMACRO()
 

@@ -53,7 +53,7 @@ static struct my_option my_long_options[] =
    "files; should be the first option",
    (char**) &config_file, (char*) &config_file, 0, GET_STR, REQUIRED_ARG,
    0, 0, 0, 0, 0, 0},
-  {"defaults-extra-file", 'e',
+  {"defaults-extra-file", 0,
    "Read this file after the global config file and before the config "
    "file in the users home directory; should be the first option",
    (void *)&my_defaults_extra_file, (void *)&my_defaults_extra_file, 0,

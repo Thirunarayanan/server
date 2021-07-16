@@ -1,10 +1,7 @@
 ## feature detection
 find_package(Threads)
 find_package(ZLIB REQUIRED)
-SET_PACKAGE_PROPERTIES(ZLIB PROPERTIES
-  PURPOSE "Required for the TokuDB storage engine"
-  TYPE REQUIRED
-)
+SET_PACKAGE_PROPERTIES(ZLIB PROPERTIES TYPE REQUIRED)
 
 option(USE_VALGRIND "Build to run safely under valgrind (often slower)." ON)
 if(USE_VALGRIND)

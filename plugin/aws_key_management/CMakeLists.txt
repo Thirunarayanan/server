@@ -71,20 +71,14 @@ ELSE()
     SKIP_AWS_PLUGIN("CMake is too old")
   ENDIF()
   FIND_PACKAGE(Git)
-  SET_PACKAGE_PROPERTIES(Git PROPERTIES
-    PURPOSE "Used to clone the AWS C++ SDK needed for the AWS Key Management plugin"
-    TYPE OPTIONAL
-  )
+  SET_PACKAGE_PROPERTIES(Git PROPERTIES TYPE OPTIONAL)
   IF(NOT GIT_FOUND)
     SKIP_AWS_PLUGIN("no GIT")
   ENDIF()
   INCLUDE(ExternalProject)
   IF(UNIX)
     FIND_PACKAGE(CURL)
-    SET_PACKAGE_PROPERTIES(CURL PROPERTIES
-      PURPOSE "Needed for the AWS Key Management plugin"
-      TYPE REQUIRED
-    )
+    SET_PACKAGE_PROPERTIES(CURL PROPERTIES TYPE REQUIRED)
     IF(NOT CURL_FOUND)
       SKIP_AWS_PLUGIN("AWS C++ SDK requires libcurl development package")
     ENDIF()
@@ -95,18 +89,12 @@ ELSE()
     ENDIF()
     IF(NOT APPLE)
       FIND_LIBRARY(UUID_LIBRARIES uuid)
-      SET_PACKAGE_PROPERTIES(UUID_LIBRARIES PROPERTIES
-        PURPOSE "Needed for the AWS Key Management plugin"
-        TYPE REQUIRED
-      )
+      SET_PACKAGE_PROPERTIES(UUID_LIBRARIES PROPERTIES TYPE REQUIRED)
       IF(NOT UUID_LIBRARIES)
         SKIP_AWS_PLUGIN("AWS C++ SDK requires uuid development package")
       ENDIF()
       FIND_PACKAGE(OpenSSL)
-      SET_PACKAGE_PROPERTIES(OpenSSL PROPERTIES
-        PURPOSE "Needed for the AWS Key Management plugin"
-        TYPE REQUIRED
-      )
+      SET_PACKAGE_PROPERTIES(OpenSSL PROPERTIES TYPE REQUIRED)
       IF(NOT OPENSSL_FOUND)
         SKIP_AWS_PLUGIN("AWS C++ SDK requires openssl development package")
       ENDIF()
@@ -187,7 +175,7 @@ MYSQL_ADD_PLUGIN(aws_key_management aws_key_management_plugin.cc
                  COMPONENT aws-key-management)
 
 IF (TARGET aws_key_management)
-  SET(NON_DISTRIBUTABLE_WARNING "Apache 2.0" PARENT_SCOPE)  
+ SET(NON_DISTRIBUTABLE_WARNING "Apache 2.0" PARENT_SCOPE)
 ENDIF()
 
-ADD_FEATURE_INFO(AWS_PLUGIN "ON" "AWS Encryption Key Management Plugin")
+ADD_FEATURE_INFO(AWS_KEY_MANAGEMENT "ON" "AWS Encryption Key Management Plugin")
